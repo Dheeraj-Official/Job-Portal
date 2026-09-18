@@ -1,0 +1,27 @@
+services:
+  # Web Service for Backend + Frontend
+  - type: web
+    name: jobportal-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: jobportal-mongodb
+          property: connectionString
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  # MongoDB Database
+  - name: jobportal-mongodb
+    plan: free
